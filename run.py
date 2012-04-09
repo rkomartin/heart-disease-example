@@ -16,6 +16,7 @@ PRED_COUNT = 100
 def main():
     API = veritable.connect(ssl_verify=False)
 
+    print("Loading and preparing data...")
     # load the data and schema describing all column datatypes
     with open(DATA_FILE, 'rb') as fd:
         data = json.loads(fd.read())
@@ -55,6 +56,7 @@ def main():
             if 'target' in r:
                 r['target'] = binary_transform(r['target'])
 
+    print("Uploading data and running analyses...")
     # upload the data and start the analyses
     table = API.create_table()
     table.batch_upload_rows(train_data)
@@ -67,6 +69,7 @@ def main():
     # now we'll make predictions for each test row, collecting the
     # predicted values for the target column
     analysis.wait()
+    print("Making predictions....")
     results = predict_known_target_column(test_data, analysis, schema,
         'target')
 
