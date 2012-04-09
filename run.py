@@ -77,12 +77,12 @@ def main():
 
     # summarize the results
     print("multinomial dataset, raw predictions: " \
-    "{0}% test error".format(summary_accuracy(results) * 100))
+    "{0}% test error".format(test_error(results) * 100))
     print("multinomial dataset, binary transform: " \
-    "{0}% test error".format(summary_accuracy(results,
+    "{0}% test error".format(test_error(results,
         transform['target']) * 100))
     print("binary dataset, raw predictions: " \
-    "{0}% test error".format(summary_accuracy(binary_results) * 100))
+    "{0}% test error".format(test_error(binary_results) * 100))
 
 
 def subset_schema(master, data):
