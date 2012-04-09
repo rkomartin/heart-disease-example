@@ -1,0 +1,125 @@
+{
+  "exercise angina": {
+    "type": "boolean"
+  }, 
+  "mets achieved": {
+    "type": "count"
+  }, 
+  "nitrates": {
+    "type": "boolean"
+  }, 
+  "beta blocker": {
+    "type": "boolean"
+  }, 
+  "resting ecg": {
+    "type": "categorical"
+  }, 
+  "sex": {
+    "type": "categorical"
+  }, 
+  "pain location": {
+    "type": "categorical"
+  }, 
+  "om2": {
+    "type": "categorical"
+  }, 
+  "om1": {
+    "type": "categorical"
+  }, 
+  "hypertension": {
+    "type": "boolean"
+  }, 
+  "ST height at rest": {
+    "type": "real"
+  }, 
+  "fasting blood sugar": {
+    "type": "boolean"
+  }, 
+  "calcium channel blocker": {
+    "type": "boolean"
+  }, 
+  "cxmain": {
+    "type": "categorical"
+  }, 
+  "duration of exercise": {
+    "type": "real"
+  }, 
+  "ST heaight at peak": {
+    "type": "real"
+  }, 
+  "diag": {
+    "type": "categorical"
+  }, 
+  "chest pain type": {
+    "type": "categorical"
+  }, 
+  "relieved after rest": {
+    "type": "boolean"
+  }, 
+  "diabetes": {
+    "type": "boolean"
+  }, 
+  "ST slope": {
+    "type": "categorical"
+  }, 
+  "pain w exertion": {
+    "type": "boolean"
+  }, 
+  "resting bp d": {
+    "type": "count"
+  }, 
+  "lmt": {
+    "type": "categorical"
+  }, 
+  "rcadist": {
+    "type": "categorical"
+  }, 
+  "digitalis": {
+    "type": "boolean"
+  }, 
+  "resting bp s": {
+    "type": "count"
+  }, 
+  "family hist": {
+    "type": "boolean"
+  }, 
+  "ladprox": {
+    "type": "categorical"
+  }, 
+  "target": {
+    "type": "categorical"
+  }, 
+  "max heart rate": {
+    "type": "count"
+  }, 
+  "age": {
+    "type": "count"
+  }, 
+  "smoker": {
+    "type": "boolean"
+  }, 
+  "resting heart rate": {
+    "type": "count"
+  }, 
+  "laddist": {
+    "type": "categorical"
+  }, 
+  "ramus": {
+    "type": "categorical"
+  }, 
+  "rcaprox": {
+    "type": "categorical"
+  }, 
+  "cholesterol": {
+    "type": "count"
+  }, 
+  "peak exercise bp 2": {
+    "type": "count"
+  }, 
+  "peak exercise bp 1": {
+    "type": "count"
+  }, 
+  "diuretic": {
+    "type": "boolean"
+  }
+}
