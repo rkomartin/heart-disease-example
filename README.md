@@ -6,12 +6,12 @@ This is a _classification_ problem. We predict the `target` column, a measure of
 
 # Files
 
-* `run.py`: A Python script that divides the data into train and test sets, runs an analysis on the training set, and makes predictions for the target column on the test set.
-* `preprocess.py`: A Python script that converts the original data file format into Veritable-ready data and schema files; also produces a csv data file for convenience.
-* `column_info.py`: A Python file containing the column names; used by `preprocess.py` to create `data.json` and `schema.json`.
-* `data.json`: A json file containing the preprocessed data from the `hungarian.data`, `long-beach-va.data`, and `switzerland.data` files.
-* `schema.json`: A json file containing a schema with column types for the data.
+* `heart_disease/run.py`: A Python script that divides the data into train and test sets, runs an analysis on the training set, and makes predictions for the target column on the test set.
+* `heart_disease/data.json`: A json file containing the preprocessed data from the `hungarian.data`, `long-beach-va.data`, and `switzerland.data` files.
+* `heart_disease/schema.json`: A json file containing a schema with column types for the data.
 * `original_data/`: A directory containing the original data files; note that the `cleveland.data` file is excluded, as this file is reportedly corrupt.
+* `original_data/preprocess.py`: A Python script that converts the original data file format into Veritable-ready data and schema files; also produces a csv data file for convenience.
+* `original_data/column_info.py`: A Python file containing the column names; used by `preprocess.py` to create `data.json` and `schema.json`.
 
 # Dataset
 
@@ -25,7 +25,7 @@ The `combined.data` file contains the concatenation of the three original datase
 
 # Usage
 
-    $ python run.py
+    $ python heart_disease/run.py
     
 # Example Output
 

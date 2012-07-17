@@ -7,11 +7,11 @@ from veritable.utils import (clean_data, split_rows, clean_predictions)
 from veritable.exceptions import VeritableError
 from collections import Counter
 
-DATA_FILE = 'data.json'
-SCHEMA_FILE = 'schema.json'
+DATA_FILE = os.path.join(os.path.dirname(__file__),'data.json')
+SCHEMA_FILE = os.path.join(os.path.dirname(__file__),'schema.json')
 VERITABLE_API_KEY = os.getenv('VERITABLE_API_KEY')
 PRED_COUNT = 100
-
+TABLE_ID = 'heart-disease-example'
 
 def main():
     API = veritable.connect(ssl_verify=False)
@@ -56,13 +56,21 @@ def main():
             if 'target' in r:
                 r['target'] = binary_transform(r['target'])
 
-    print("Uploading data and running analyses...")
+    # delete existing tables if present
+    if API.table_exists(TABLE_ID):
+        print("Deleting old table '%s'" %TABLE_ID)
+        API.delete_table(TABLE_ID)
+    if API.table_exists(TABLE_ID+"-binary"):
+        print("Deleting old table '%s'" %(TABLE_ID+"-binary"))
+        API.delete_table(TABLE_ID+"-binary")
+
     # upload the data and start the analyses
-    table = API.create_table()
+    print("Uploading data and running analyses...")
+    table = API.create_table(TABLE_ID)
     table.batch_upload_rows(train_data)
     analysis = table.create_analysis(schema)
 
-    binary_table = API.create_table()
+    binary_table = API.create_table(TABLE_ID+"-binary")
     binary_table.batch_upload_rows(binary_train_data)
     binary_analysis = binary_table.create_analysis(binary_schema)
 
@@ -80,12 +88,12 @@ def main():
 
     # summarize the results
     print("multinomial dataset, raw predictions: " \
-    "{0}% test error".format(test_error(results) * 100))
+    "{0}% test error".format(test_error(results, 'target') * 100))
     print("multinomial dataset, binary transform: " \
-    "{0}% test error".format(test_error(results,
-        transform['target']) * 100))
+    "{0}% test error".format(test_error(results, 'target',
+        transform=binary_transform) * 100))
     print("binary dataset, raw predictions: " \
-    "{0}% test error".format(test_error(binary_results) * 100))
+    "{0}% test error".format(test_error(binary_results, 'target') * 100))
 
 
 def subset_schema(master, data):
@@ -105,14 +113,17 @@ def predict_known_target_column(data, analysis, schema, target):
     # columns, and collect one dict for each row contining the actual value
     # and the predictions object
     results = []
-    rows = deepcopy(data)
-    clean_predictions(rows, schema)
-    for row in rows:
-        if target in row:
-            result = {'actual': row[target]}
-            row[target] = None
-            result['predicted'] = analysis.predict(row)
-            results.append(result)
+    rows = [row for row in deepcopy(data) if target in row]
+    prediction_requests = deepcopy(rows)    
+    clean_predictions(prediction_requests, schema)
+    for prediction_request in prediction_requests:
+        prediction_request[target] = None
+    prediction_results = list(analysis.batch_predict(prediction_requests))
+    results = []
+    for i in range(len(prediction_requests)):
+        result = {'actual': rows[i][target],
+                  'predicted': prediction_results[i]}
+        results.append(result)
     return results
 
 
